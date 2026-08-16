@@ -1,0 +1,37 @@
+{
+  "name": "Send-A-Spline",
+  "version": "0.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build --base=/send-a-spline-2/",
+    "serve": "vite preview",
+    "lint": "eslint ./src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\""
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^25.6.2",
+    "@typescript-eslint/eslint-plugin": "^8.47.0",
+    "@typescript-eslint/parser": "^8.47.0",
+    "eslint": "^9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-solid": "^0.14.5",
+    "jiti": "^2.6.1",
+    "prettier": "^3.6.2",
+    "solid-devtools": "^0.34.3",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.46.2",
+    "vite": "^7.1.4",
+    "vite-plugin-pwa": "^1.2.0",
+    "vite-plugin-solid": "^2.11.8"
+  },
+  "dependencies": {
+    "install": "^0.13.0",
+    "memoize": "^11.0.0",
+    "solid-js": "^1.9.5"
+  }
+}

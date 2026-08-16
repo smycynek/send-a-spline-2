@@ -1,0 +1,81 @@
+html,
+body {
+  user-select: none;
+  touch-action: none;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+}
+
+div {
+  user-select: none;
+  touch-action: none;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+}
+
+body {
+  background-color: palegoldenrod;
+  user-select: none;
+}
+
+hr {
+  background-color: black;
+  margin: 1px;
+  padding: 0px;
+}
+
+h1,
+h2 {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  font-family: sans-serif;
+}
+
+h2 {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: large;
+}
+
+p,
+span,
+li,
+ul {
+  font-size: medium;
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.large {
+  font-size: large;
+}
+
+.label {
+  font-family: sans-serif;
+  font-size: large;
+}
+
+.header,
+.row {
+  background-color: palegoldenrod;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: black;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.pointCanvas {
+  touch-action: manipulation;
+  border-width: 1px;
+  background-color: lightgrey;
+  border-style: solid;
+  margin: 5px;
+}

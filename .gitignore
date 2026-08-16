@@ -141,3 +141,7 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+sitevars.sh
+send-a-spline-2/
+send-a-spline-2.zip
