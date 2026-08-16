@@ -62,8 +62,11 @@ const App: Component = () => {
     const queryString = window.location.search;
     if (queryString) {
       Logger.info(queryString.substring(6));
-      setPoints(await loadDataFromQueryString(queryString));
-      Logger.info('Loaded from URL');
+      const queryStringPoints = await loadDataFromQueryString(queryString);
+      if (queryStringPoints.length) {
+        setPoints(queryStringPoints);
+        Logger.info('Loaded from URL');
+      }
     } else {
       const savedPoints = await loadData();
       if (savedPoints.length) {
@@ -241,7 +244,7 @@ const App: Component = () => {
     saveData(points());
     const url = await getTextUrl();
     setTextLink(url);
-    Logger.info(textLink());
+    Logger.trace(textLink());
   };
 
   const mouseDownHandler = (data: MouseEvent) => {

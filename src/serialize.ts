@@ -18,14 +18,19 @@ export async function compressToBase64(text: string): Promise<string> {
 }
 
 export async function base64ToUncompressed(text: string): Promise<string> {
-  const compressedBytes = Uint8Array.from(atob(text), (char) => char.charCodeAt(0));
-  const stream = new DecompressionStream('gzip');
-  const writer = stream.writable.getWriter();
-  writer.write(compressedBytes);
-  writer.close();
-  const decompressedBuffer = await new Response(stream.readable).arrayBuffer();
-  Logger.info('base64Uncompress');
-  return new TextDecoder().decode(decompressedBuffer);
+  try {
+    const compressedBytes = Uint8Array.from(atob(text), (char) => char.charCodeAt(0));
+    const stream = new DecompressionStream('gzip');
+    const writer = stream.writable.getWriter();
+    writer.write(compressedBytes);
+    writer.close();
+    const decompressedBuffer = await new Response(stream.readable).arrayBuffer();
+    Logger.info('base64Uncompress');
+    return new TextDecoder().decode(decompressedBuffer);
+  } catch (e) {
+    Logger.warn('Cannot deserialize data ' + e);
+    return await '';
+  }
 }
 
 export function getDataAsJSON(points: Point[], compact: boolean = true): string {
@@ -45,7 +50,7 @@ function getPointsFromJSON(data: string): Point[] {
   return points;
 }
 
-const localStorageKey = 'multiCubicPointData_v11';
+const localStorageKey = 'multiCubicPointData_v13';
 
 export async function saveData(points: Point[]) {
   const data = getDataAsJSON(points, true);
@@ -65,6 +70,11 @@ export async function loadDataFromQueryString(queryString: string): Promise<Poin
   }
   Logger.info(`Query string: ${queryString}`);
   const uncompressed = await base64ToUncompressed(sData);
+  Logger.info(`Uncompressed: ${uncompressed}`);
+  if (!uncompressed) {
+    Logger.warn('Cannot read data, returning empty');
+    return [];
+  }
   return getPointsFromJSON(uncompressed);
 }
 export async function saveDataToQueryString(points: Point[]): Promise<string> {
