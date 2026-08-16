@@ -63,9 +63,12 @@ const App: Component = () => {
     if (queryString) {
       Logger.info(queryString.substring(6));
       const queryStringPoints = await loadDataFromQueryString(queryString);
-      if (queryStringPoints.length) {
+      Logger.info(`Loaded ${queryStringPoints.length} points`);
+      if (queryStringPoints.length >= 4 && queryStringPoints.length <= 16) {
         setPoints(queryStringPoints);
         Logger.info('Loaded from URL');
+      } else {
+        Logger.info('Loading default');
       }
     } else {
       const savedPoints = await loadData();
