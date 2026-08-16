@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "Send a Spline 2",
+      "name": "Send-a-Spline-2",
       "dependencies": {
         "install": "^0.13.0",
         "memoize": "^11.0.0",

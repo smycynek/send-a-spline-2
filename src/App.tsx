@@ -298,7 +298,7 @@ const App: Component = () => {
       </header>
       <header class={styles.header}>
         <canvas
-          title="Drag here.  Add/remove/send coming soon.  Like I said, hours of fun."
+          title="Drag points here.  Like I said, hours of fun."
           onMouseDown={mouseDownHandler}
           onMouseMove={mouseMoveHandler}
           onTouchStart={touchStartHandler}
