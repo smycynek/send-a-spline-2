@@ -164,6 +164,8 @@ const App: Component = () => {
     drawAllEntities();
   };
 
+
+  // DEMO_5_1 Add bezier segments
   // Add pre-defined default curves defined above
   const addButtonHandler = () => {
     const pointCount = points().length;

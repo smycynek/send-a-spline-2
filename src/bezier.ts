@@ -55,6 +55,8 @@ function createSplineBezierManualArray(controlPoints: Point[]): Point[] {
   return bezierPoints;
 }
 
+
+// DEMO_5_0 Composite bezier
 ///
 /// Create groups of four points with the last point of each group
 /// is also the start point of the next group
@@ -80,6 +82,10 @@ export function createCompositeSplineBezier(controlPoints: Point[]): Point[] {
   }
   return spline;
 }
+
+
+// DEMO_5_2 Adjust joins
+
 
 // When the user selects a point, it might be a join point or one of the points directly before or after it.
 // This there are corner cases for selections near the beginning or end of the spline, but we want to figure out
