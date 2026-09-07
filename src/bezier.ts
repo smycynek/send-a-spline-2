@@ -55,6 +55,7 @@ function createSplineBezierManualArray(controlPoints: Point[]): Point[] {
   return bezierPoints;
 }
 
+// DEMO_5_0 Composite bezier
 ///
 /// Create groups of four points with the last point of each group
 /// is also the start point of the next group
@@ -80,6 +81,8 @@ export function createCompositeSplineBezier(controlPoints: Point[]): Point[] {
   }
   return spline;
 }
+
+// DEMO_5_2 Adjust joins
 
 // When the user selects a point, it might be a join point or one of the points directly before or after it.
 // This there are corner cases for selections near the beginning or end of the spline, but we want to figure out
@@ -122,18 +125,26 @@ export const adjustJoin = (
   const middleIndex = startIndex + 1;
   const endIndex = startIndex + 2;
 
-  // To maintain G1 continuity,
+  // To maintain G1 and C1 continuity,
   // we need the join-point and the points before and after it to be colinear and equidistant from
   // the (center) join point.  Also, the join point acts like a pivot and does not move if the
   // 'before' or 'after' points are moved.  If the join point is moved, the 'before' and 'after' points
   // move with i.
+
+  // Note, making the start and end points equidistant as well as colinear is what
+  // gives us C1 continuity.  This can be a little inflexible, though.  I
+  // might have an option to ease this up in the future, as G1 is what most people want.
   if (pointIndex === startIndex) {
     Logger.trace(`Adjusting first joint point. ${pointIndex}`);
     pointList[startIndex] = cartesianAdjust(currentPoint);
     const pStart = pointList[startIndex];
     const pMiddle = pointList[middleIndex];
     let pEnd = pointList[endIndex];
+    // Take the difference between the middle and new start, add to middle,
+    // and that's your new endpoint.
     pEnd = pMiddle.add(pMiddle.subtract(pStart as Triple)) as Point;
+    Logger.trace('Also adjusting end join point.');
+    Logger.trace('---');
     pointList[endIndex] = pEnd;
   }
 
@@ -145,8 +156,14 @@ export const adjustJoin = (
     const newPMiddle = cartesianAdjust(currentPoint);
     const deltaMiddle = newPMiddle.subtract(pMiddle as Triple) as Point;
     pStart = pStart.add(deltaMiddle) as Point;
+    Logger.trace('Also adjusting start join point.');
     pointList[startIndex] = pStart;
-    pEnd = pMiddle.add(pMiddle.subtract(pStart as Triple)) as Point;
+    pEnd = pEnd.add(deltaMiddle) as Point;
+    Logger.trace('Also adjusting end join point.');
+    // Take the difference between the new middle and old middle, add
+    // that to your start, and that's your new start.
+    // Do the same for the endpoint
+    Logger.trace('---');
     pointList[endIndex] = pEnd;
   }
 
@@ -157,6 +174,7 @@ export const adjustJoin = (
     pointList[endIndex] = cartesianAdjust(currentPoint);
     const pEnd = pointList[endIndex];
     pStart = pMiddle.scale(2).subtract(pEnd as Triple) as Point;
+    Logger.trace('Also adjusting start join point.');
     pointList[startIndex] = pStart;
   }
 
